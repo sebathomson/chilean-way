@@ -1,0 +1,4 @@
+services:
+#    chilean_way.example:
+#        class: SebaThomson\ChileanWayBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

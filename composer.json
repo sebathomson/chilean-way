@@ -1,0 +1,27 @@
+{
+    "name": "sebathomson/chilean-way",
+    "type": "symfony-bundle",
+    "description": "Symfony2 ChileanWayBundle",
+    "keywords": ["Chilean Configuration"],
+    "homepage": "http://sebathomson.cl/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastián Thomson",
+            "email": "seba.thomson@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/framework-bundle": ">=2.4",
+        "symfony/symfony": ">=2.4"
+    },
+    "autoload": {
+        "psr-4": { "SebaThomson\\ChileanWay\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "master"
+        }
+    }
+}
