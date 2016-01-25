@@ -1,4 +1,15 @@
 services:
-#    chilean_way.example:
-#        class: SebaThomson\ChileanWayBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    # Name: chilean_way_base_twig_extension
+    # Description: Parámetro que indica el formato de los TIME que son mostrados en la aplicación
+    # Options: los formatos disponibles de php para el objeto Time()
+    chilean_way_twig_extension:
+        class: SebaThomson\ChileanWay\Twig\ChileanWayTwigExtension
+        arguments: [@service_container]
+        tags:
+            - { name: twig.extension }
+    # Name: chilean_way_base_service
+    # Description: Parámetro que indica el formato de los TIME que son mostrados en la aplicación
+    # Options: los formatos disponibles de php para el objeto Time()
+    chilean_way_service.utils:
+        class: SebaThomson\ChileanWay\Services\ChileanWayUtilsService
+        arguments: [@service_container]
