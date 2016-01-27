@@ -20,9 +20,30 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('chilean_way');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $suppertedRutFormats = ['xxxxxxxxx', 'xxxxxxxx-x', 'xx.xxx.xxx-x'];
+
+        $rootNode
+        ->children()
+                ->scalarNode('rut_format')
+                    ->defaultValue('xxxxxxxx-x')
+                    ->cannotBeEmpty()
+                    ->validate()
+                        ->ifNotInArray($supportedDrivers)
+                        ->thenInvalid('The format %s is not supported. Please choose one of '.json_encode($suppertedRutFormats))
+                    ->end()
+                ->end()
+                ->scalarNode('date_format')
+                    ->defaultValue('d-m-Y')
+                    ->cannotBeEmpty()
+                    ->end()
+                ->scalarNode('datetime_format')
+                    ->defaultValue('d-m-Y H:i')
+                    ->cannotBeEmpty()
+                    ->end()
+                ->scalarNode('time_format')
+                    ->defaultValue('H:i')
+                    ->cannotBeEmpty()
+                    ->end();
 
         return $treeBuilder;
     }

@@ -125,5 +125,32 @@ class ChileanWayUtilsService
 
         return $stringAge;
     }
+
+    public function slugify($string, $split = '-')
+    {
+        $string = trim($string);
+        $string = $this->latinCharacters($string);
+        $string = strtolower($string);
+        $string = preg_replace("#[ \t\n\r]+#", " ", $string);
+        $string = preg_replace("[^ A-Za-z0-9_]", "", $string);
+        $string = trim($string);
+        $string = str_replace(" ", $split, $string);
+
+        return $string;
+    }
+
+    public function latinCharacters($string)
+    {
+        $string = preg_replace("(À|Á|Â|Ã|Ä|Å|à|á|â|ã|ä|å)","a",$string);
+        $string = preg_replace("(È|É|Ê|Ë|è|é|ê|ë)","e",$string);
+        $string = preg_replace("(Ì|Í|Î|Ï|ì|í|î|ï)","i",$string);
+        $string = preg_replace("(Ò|Ó|Ô|Õ|Ö|Ø|ò|ó|ô|õ|ö|ø)","o",$string);
+        $string = preg_replace("(Ù|Ú|Û|Ü|ù|ú|û|ü)","u",$string);
+        $string = preg_replace("(Ñ|ñ)","n",$string);
+        $string = preg_replace("(Ç|ç)","c",$string);
+        $string = preg_replace("#ÿ#","y",$string);
+
+        return $string;
+    }
 }
 ?>
