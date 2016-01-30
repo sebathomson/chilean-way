@@ -10,18 +10,19 @@ class ChileanWayUtilsService
 {
     private $container;
 
-    public function __construct($container) {
+    public function __construct($container)
+    {
         $this->container = $container;
     }
 
     public function getRutFormatted($strRut)
     {
         $strRut = str_replace('.', '', $strRut);
-        
-        $arrExp = explode( "-", $strRut );
-        if ( COUNT( $arrExp ) != 2 ) {
+
+        $arrExp = explode('-', $strRut);
+        if (count($arrExp) != 2) {
             $strRut = str_replace('-', '', $strRut);
-            $SplRut = str_split( $strRut );
+            $SplRut = str_split($strRut);
             $lenRut = count($SplRut);
             $auxRut = '';
             foreach ($SplRut as $pos => $char) {
@@ -32,8 +33,9 @@ class ChileanWayUtilsService
             }
             $strRut = $auxRut;
         }
-        $arrRut = explode( "-", $strRut );
-        return number_format( $arrRut[0], 0, "", ".") . '-' . $arrRut[1];
+        $arrRut = explode('-', $strRut);
+
+        return number_format($arrRut[0], 0, '', '.').'-'.$arrRut[1];
     }
 
     public function getDateFormatted($oDate)
@@ -68,59 +70,58 @@ class ChileanWayUtilsService
             return $this->container->getParameter($parameterName);
         }
 
-        return null;
+        return;
     }
 
     /**
-     * A esta función le falta el translate
+     * A esta función le falta el translate.
      */
     public function getAge($bidthday)
     {
         $today = new \DateTime();
 
         if (is_null($bidthday)) {
-            return null;
+            return;
         }
 
         if (!is_object($bidthday)) {
             try {
                 $bidthday = new \DateTime($bidthday);
             } catch (Exception $e) {
-                return null;
+                return;
             }
         }
 
-        $interval  = date_diff( date_create($bidthday->format('Y-m-d')) , date_create($today->format('Y-m-d')) );
+        $interval = date_diff(date_create($bidthday->format('Y-m-d')), date_create($today->format('Y-m-d')));
 
-        $out       = $interval->format("Years:%Y,Months:%M,Days:%d");
+        $out = $interval->format('Years:%Y,Months:%M,Days:%d');
 
-        $a_out     = array();
-        $arrData  = explode(',',$out);
+        $a_out = [];
+        $arrData = explode(',', $out);
 
-        for($i=0;$i<count($arrData);$i++)
-        {
-            $data = explode(':',$arrData[$i]);
+        for ($i = 0; $i < count($arrData); $i++) {
+            $data = explode(':', $arrData[$i]);
             $a_out[$data[0]] = $data[1];
         }
 
         $stringAge = '';
 
-        if ($a_out["Years"] == 1) {
-            $stringAge .= $a_out["Years"] . ' Año, ';
+        if ($a_out['Years'] == 1) {
+            $stringAge .= $a_out['Years'].' Año, ';
         } else {
-            $stringAge .= $a_out["Years"] . ' Años, ';
+            $stringAge .= $a_out['Years'].' Años, ';
         }
 
-        if ($a_out["Months"] == 1) {
-            $stringAge .= $a_out["Months"] . ' Mes y ';
+        if ($a_out['Months'] == 1) {
+            $stringAge .= $a_out['Months'].' Mes y ';
         } else {
-            $stringAge .= $a_out["Months"] . ' Meses y ';
+            $stringAge .= $a_out['Months'].' Meses y ';
         }
 
-        if ($a_out["Days"] == 1) {
-            $stringAge .= $a_out["Days"] . ' Día';
+        if ($a_out['Days'] == 1) {
+            $stringAge .= $a_out['Days'].' Día';
         } else {
-            $stringAge .= $a_out["Days"] . ' Días';
+            $stringAge .= $a_out['Days'].' Días';
         }
 
         return $stringAge;
@@ -131,26 +132,25 @@ class ChileanWayUtilsService
         $string = trim($string);
         $string = $this->latinCharacters($string);
         $string = strtolower($string);
-        $string = preg_replace("#[ \t\n\r]+#", " ", $string);
-        $string = preg_replace("[^ A-Za-z0-9_]", "", $string);
+        $string = preg_replace("#[ \t\n\r]+#", ' ', $string);
+        $string = preg_replace('[^ A-Za-z0-9_]', '', $string);
         $string = trim($string);
-        $string = str_replace(" ", $split, $string);
+        $string = str_replace(' ', $split, $string);
 
         return $string;
     }
 
     public function latinCharacters($string)
     {
-        $string = preg_replace("(À|Á|Â|Ã|Ä|Å|à|á|â|ã|ä|å)","a",$string);
-        $string = preg_replace("(È|É|Ê|Ë|è|é|ê|ë)","e",$string);
-        $string = preg_replace("(Ì|Í|Î|Ï|ì|í|î|ï)","i",$string);
-        $string = preg_replace("(Ò|Ó|Ô|Õ|Ö|Ø|ò|ó|ô|õ|ö|ø)","o",$string);
-        $string = preg_replace("(Ù|Ú|Û|Ü|ù|ú|û|ü)","u",$string);
-        $string = preg_replace("(Ñ|ñ)","n",$string);
-        $string = preg_replace("(Ç|ç)","c",$string);
-        $string = preg_replace("#ÿ#","y",$string);
+        $string = preg_replace('(À|Á|Â|Ã|Ä|Å|à|á|â|ã|ä|å)', 'a', $string);
+        $string = preg_replace('(È|É|Ê|Ë|è|é|ê|ë)', 'e', $string);
+        $string = preg_replace('(Ì|Í|Î|Ï|ì|í|î|ï)', 'i', $string);
+        $string = preg_replace('(Ò|Ó|Ô|Õ|Ö|Ø|ò|ó|ô|õ|ö|ø)', 'o', $string);
+        $string = preg_replace('(Ù|Ú|Û|Ü|ù|ú|û|ü)', 'u', $string);
+        $string = preg_replace('(Ñ|ñ)', 'n', $string);
+        $string = preg_replace('(Ç|ç)', 'c', $string);
+        $string = preg_replace('#ÿ#', 'y', $string);
 
         return $string;
     }
 }
-?>
