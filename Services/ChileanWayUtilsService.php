@@ -2,6 +2,7 @@
 
 namespace SebaThomson\ChileanWay\Service;
 
+use Symfony\Component\Config\Definition\Exception\Exception;
 /**
  * @author Sebastián Thomson <[seba.thomsongmail.com]>
  * @github https://github.com/sebathomson
@@ -94,10 +95,11 @@ class ChileanWayUtilsService
 
         $out       = $interval->format("Years:%Y,Months:%M,Days:%d");
 
-        $a_out     = array();
-        $arrData  = explode(',',$out);
+        $a_out      = array();
+        $arrData    = explode(',',$out);
+        $iCountData = count($arrData);
 
-        for($i=0;$i<count($arrData);$i++)
+        for($i=0; $i<$iCountData; $i++)
         {
             $data = explode(':',$arrData[$i]);
             $a_out[$data[0]] = $data[1];
