@@ -3,6 +3,7 @@
 namespace SebaThomson\ChileanWay\Service;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
+
 /**
  * @author Sebastián Thomson <[seba.thomsongmail.com]>
  * @github https://github.com/sebathomson
